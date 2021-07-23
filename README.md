@@ -10,18 +10,19 @@ This is a port of JavaScript's [classnames](https://www.npmjs.com/package/classn
 module ApplicationHelper
   include ClassNames
 
-  def example
+  def my_element(**opts)
     str = classnames(
-      'takes',
-      ['all', 'kinds'],
-      { of: true, not_me: false },
-      ->{ 'arguments' },
-      nil, # and ignores ...
-      false, # ... falsey values
+      'takes',                      # string
+      ['all', 'kinds'],             # array
+      { of: true, not_me: false },  # hash
+      ->{ 'arguments' },            # proc
+      nil,                          # and ignores ...
+      false,                        # ... falsey values
+      opts.delete(:class)
     )
     # => "takes all kinds of arguments"
 
-    content_tag(:div, class: str) { 'So hot' }
+    tag.div(class: str, **opts) { 'So hot' }
   end
 end
 ```
